@@ -1,0 +1,88 @@
+#+TITLE: Reel
+
+*ALPHA*
+
+* Reel: utilities for the remarkable tablet
+  :PROPERTIES:
+  :ID:       ufocsvu0p3j0
+  :END:
+
+  A work in progress at the moment. The only functionality is the
+  ability to create custom templates using a special emacs frame
+
+  
+** =reel-create-template=
+   :PROPERTIES:
+   :ID:       dazcsvu0p3j0
+   :END:
+
+   Create a template png and svg and upate the =template.json= file
+   using a special emacs instance.
+
+   
+*** Requirements
+    :PROPERTIES:
+    :ID:       lq4dsvu0p3j0
+    :END:
+
+    - Emacs 27+ compiled =--with-json= and =--with-cairo= supporting
+      png and svg file export
+    - SSH access to the remarkable tablet
+
+*** Instructions
+    :PROPERTIES:
+    :ID:       oyadsvu0p3j0
+    :END:
+
+    Choose an installation method:
+
+    
+**** Tramp template installation
+     :PROPERTIES:
+     :ID:       j2jdsvu0p3j0
+     :END:
+
+     Set up the output directory to be the remote folder on the
+     remarkable storing the template files:
+
+     =M-x customize-variable RET reel-template-dir= 
+
+     =/ssh:root@remarkable-ip-address:/usr/share/remarkable/templates/=
+
+     Make sure to add the trailing slash on the directory name. In
+     order to use this method, the remarkable tablet must be awake and
+     accessible by ssh.
+     
+**** Syncthing template installation
+     :PROPERTIES:
+     :ID:       fwtdsvu0p3j0
+     :END:
+
+     Set up [[https://github.com/Evidlo/remarkable_syncthing][syncthing on remarkable]] and share the folder
+     =/usr/share/remarkable/templates/=. Add the folder to the computer
+     running emacs, and set it as the =reel-template-dir=. Templates
+     added will automatically be uploaded to the remarkable tablet the
+     next time it connects to wifi.
+
+
+   Use =M-x reel-create-template= to start a new emacs session with
+   the exact frame size needed for the template and with the modeline
+   and cursor disabled. Once you've placed windows and text how you'd
+   like it to appear on the tablet, type =C-c C-c= to save the
+   template.
+
+   Inspect the resulting png and svg files and customize the
+   =reel-offset-width= and =reel-offset-height= so that the images
+   will be exactly 1404x1872.
+
+   If you overwrite an existing template name, any previous
+   annotations made in notebooks created from the template will be
+   updated to the new images, which may mess up the existing
+   annotations.
+
+   In exwm, the new emacs instance will be loaded in a floating frame
+   in =char= mode. In order to move it around the screen, use the
+   super key and the left mouse button to drag the window.
+
+
+     
